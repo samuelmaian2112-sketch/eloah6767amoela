@@ -1,0 +1,649 @@
+/* ============================================================
+   PARA ELOAH — FOLHA DE ESTILOS
+   Organizada por seções. Procure pelos comentários em MAIÚSCULO
+   para encontrar rapidamente o que quer editar.
+   ============================================================ */
+
+/* ---------- FONTES (Google Fonts via @import) ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Caveat:wght@500;600&family=Jost:wght@300;400;500&display=swap');
+
+/* ============================================================
+   1. VARIÁVEIS DE COR E TOKENS
+   → É AQUI que você troca a paleta de cores do site inteiro.
+   ============================================================ */
+:root {
+  /* paleta principal */
+  --azul-noturno: #10132b;      /* azul-marinho / céu noturno profundo */
+  --azul-noturno-2: #191d3f;    /* variação um pouco mais clara, para gradientes */
+  --azul-arroxeado: #372e63;    /* azul arroxeado */
+  --lilas: #b7a6dd;             /* lilás */
+  --rosa-suave: #f3d3de;        /* rosa bem suave */
+  --creme: #faf5ef;             /* branco/creme, usado em cartas e textos claros */
+  --dourado: #cba05f;           /* dourado para detalhes */
+  --verde-jardim: #5f7a5e;      /* verde suave para hastes do jardim */
+
+  /* tons de texto */
+  --texto-claro: #f4efe8;
+  --texto-suave: #d8d2ea;
+  --texto-carta: #2c2440;
+
+  /* tipografia */
+  --fonte-serifada: 'Cormorant Garamond', 'Georgia', serif;
+  --fonte-manuscrita: 'Caveat', cursive;
+  --fonte-corpo: 'Jost', 'Segoe UI', sans-serif;
+
+  /* espaçamentos e formas */
+  --raio-suave: 22px;
+  --sombra-suave: 0 20px 60px rgba(10, 8, 30, 0.35);
+  --largura-leitura: 640px;
+
+  /* transições */
+  --transicao-suave: 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ============================================================
+   2. RESET E BASE
+   ============================================================ */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  font-family: var(--fonte-corpo);
+  color: var(--texto-claro);
+  background: var(--azul-noturno);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+}
+
+img, svg {
+  display: block;
+  max-width: 100%;
+}
+
+h1, h2, h3, p {
+  margin: 0;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* foco visível para acessibilidade em todos os elementos interativos */
+a:focus-visible,
+button:focus-visible {
+  outline: 2px solid var(--dourado);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* ============================================================
+   3. CÉU NOTURNO — ESTRELAS E LUAS (reutilizado em várias seções)
+   ============================================================ */
+.stars-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.estrela {
+  position: absolute;
+  width: var(--tamanho, 1.2px);
+  height: var(--tamanho, 1.2px);
+  background: var(--creme);
+  border-radius: 50%;
+  opacity: 0.6;
+  animation: piscar var(--duracao, 4s) ease-in-out var(--atraso, 0s) infinite;
+  box-shadow: 0 0 4px rgba(250, 245, 239, 0.6);
+}
+
+@keyframes piscar {
+  0%, 100% { opacity: 0.25; transform: scale(0.8); }
+  50%      { opacity: 0.95; transform: scale(1.15); }
+}
+
+/* luas — um único gradiente radial reaproveitado com tamanhos diferentes */
+.intro-moon,
+.hero-moon,
+.jardim-lua,
+.final-lua {
+  position: absolute;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 35% 30%, rgba(255,255,255,0.9), rgba(250, 240, 220, 0.55) 45%, rgba(250, 240, 220, 0.08) 70%);
+  filter: blur(0.3px);
+}
+
+/* ============================================================
+   4. TELA INICIAL (INTRO)
+   ============================================================ */
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(160deg, var(--azul-noturno) 0%, var(--azul-arroxeado) 100%);
+  transition: opacity var(--transicao-suave), visibility var(--transicao-suave);
+}
+
+.intro--saindo {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.intro-sky {
+  position: absolute;
+  inset: 0;
+}
+
+.intro-moon {
+  width: 130px;
+  height: 130px;
+  top: 12%;
+  right: 14%;
+}
+
+.corner-flower {
+  position: absolute;
+  width: 120px;
+  height: 120px;
+  opacity: 0.85;
+}
+.corner-flower--tl { top: -20px; left: -20px; transform: rotate(-8deg) scale(0.85); }
+.corner-flower--br { bottom: -25px; right: -25px; transform: rotate(10deg) scale(1); }
+
+.intro-content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 32px;
+  max-width: 480px;
+}
+
+.intro-eyebrow {
+  font-family: var(--fonte-serifada);
+  font-style: italic;
+  font-size: clamp(2rem, 6vw, 3rem);
+  color: var(--creme);
+  margin-bottom: 18px;
+  letter-spacing: 0.02em;
+}
+
+.intro-sub {
+  font-family: var(--fonte-manuscrita);
+  font-size: clamp(1.3rem, 4vw, 1.7rem);
+  color: var(--texto-suave);
+  margin-bottom: 36px;
+}
+
+/* ============================================================
+   5. BOTÕES
+   ============================================================ */
+.btn {
+  display: inline-block;
+  border: 1px solid var(--dourado);
+  background: transparent;
+  color: var(--creme);
+  padding: 14px 34px;
+  font-size: 1rem;
+  letter-spacing: 0.03em;
+  border-radius: 999px;
+  transition: background var(--transicao-suave), color var(--transicao-suave), transform 300ms ease;
+}
+
+.btn:hover,
+.btn:focus-visible {
+  background: var(--dourado);
+  color: var(--azul-noturno);
+  transform: translateY(-2px);
+}
+
+.back-to-top {
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  z-index: 40;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid rgba(203, 160, 95, 0.6);
+  background: rgba(16, 19, 43, 0.75);
+  color: var(--creme);
+  font-size: 1.2rem;
+  backdrop-filter: blur(4px);
+  transition: opacity 400ms ease, transform 300ms ease;
+}
+
+.back-to-top:hover {
+  transform: translateY(-3px);
+}
+
+.back-to-top[hidden] {
+  display: none;
+}
+
+/* ============================================================
+   6. CONTEÚDO PRINCIPAL / OCULTAÇÃO INICIAL
+   ============================================================ */
+.site-oculto {
+  display: none;
+}
+
+/* ============================================================
+   7. LAYOUT GERAL DE SEÇÕES
+   ============================================================ */
+.secao {
+  position: relative;
+  padding: 110px 24px;
+  overflow: hidden;
+}
+
+.secao-cabecalho {
+  text-align: center;
+  max-width: var(--largura-leitura);
+  margin: 0 auto 56px;
+}
+
+.secao-eyebrow {
+  font-family: var(--fonte-manuscrita);
+  font-size: clamp(1.4rem, 4vw, 1.8rem);
+  color: var(--lilas);
+}
+
+.secao-titulo {
+  font-family: var(--fonte-serifada);
+  font-weight: 500;
+  font-size: clamp(1.8rem, 5vw, 2.6rem);
+  color: var(--creme);
+  line-height: 1.3;
+}
+
+.secao-instrucao {
+  margin-top: 10px;
+  font-size: 0.95rem;
+  color: var(--texto-suave);
+}
+
+/* animação de revelar ao rolar a página */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 900ms ease, transform 900ms ease;
+}
+.reveal--visivel {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ============================================================
+   8. HERO PRINCIPAL
+   ============================================================ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  background: linear-gradient(180deg, var(--azul-noturno) 0%, var(--azul-noturno-2) 55%, var(--azul-arroxeado) 100%);
+  padding: 120px 24px;
+}
+
+.hero-moon {
+  width: min(60vw, 420px);
+  height: min(60vw, 420px);
+  top: -8%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0.5;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+
+.hero-title {
+  font-family: var(--fonte-serifada);
+  font-weight: 500;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  line-height: 1.25;
+  color: var(--creme);
+  margin-bottom: 26px;
+}
+
+.hero-text {
+  font-size: clamp(1rem, 2.4vw, 1.2rem);
+  color: var(--texto-suave);
+  line-height: 1.7;
+}
+
+.scroll-hint {
+  margin: 56px auto 0;
+  width: 1px;
+  height: 46px;
+  background: linear-gradient(var(--dourado), transparent);
+  position: relative;
+}
+.scroll-hint span {
+  position: absolute;
+  bottom: 0;
+  left: -2px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--dourado);
+  animation: descer 2.4s ease-in-out infinite;
+}
+@keyframes descer {
+  0%   { transform: translateY(-46px); opacity: 0; }
+  50%  { opacity: 1; }
+  100% { transform: translateY(0); opacity: 0; }
+}
+
+/* ============================================================
+   9. CARTA
+   ============================================================ */
+.carta-secao {
+  background: linear-gradient(180deg, var(--azul-arroxeado) 0%, #241d47 100%);
+}
+
+.carta-papel {
+  position: relative;
+  max-width: var(--largura-leitura);
+  margin: 0 auto;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(183, 166, 221, 0.18), transparent 45%),
+    radial-gradient(circle at 90% 85%, rgba(243, 211, 222, 0.15), transparent 50%),
+    var(--creme);
+  color: var(--texto-carta);
+  padding: clamp(32px, 6vw, 64px);
+  border-radius: var(--raio-suave);
+  box-shadow: var(--sombra-suave);
+  font-family: var(--fonte-serifada);
+  font-size: clamp(1.05rem, 2.2vw, 1.25rem);
+  line-height: 1.85;
+}
+
+.carta-papel p {
+  margin-bottom: 22px;
+}
+
+.carta-assinatura {
+  font-family: var(--fonte-manuscrita);
+  font-size: 1.6rem;
+  color: var(--azul-arroxeado);
+  margin-top: 12px;
+}
+
+.carta-selo {
+  width: 52px;
+  height: 52px;
+  margin: 0 auto 26px;
+  color: var(--dourado);
+}
+
+/* ============================================================
+   10. CARDS "O QUE EU ADMIRO EM VOCÊ"
+   ============================================================ */
+.admira-secao {
+  background: var(--azul-noturno-2);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 20px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.card-admira {
+  text-align: center;
+  padding: 34px 18px;
+  border-radius: var(--raio-suave);
+  border: 1px solid rgba(183, 166, 221, 0.25);
+  background: linear-gradient(160deg, rgba(183, 166, 221, 0.08), rgba(243, 211, 222, 0.04));
+  transition: transform 350ms ease, border-color 350ms ease;
+}
+
+.card-admira:hover {
+  transform: translateY(-6px);
+  border-color: var(--dourado);
+}
+
+.card-icone {
+  width: 30px;
+  height: 30px;
+  margin: 0 auto 16px;
+  color: var(--dourado);
+}
+
+.card-admira p {
+  font-family: var(--fonte-serifada);
+  font-style: italic;
+  font-size: 1.15rem;
+  color: var(--texto-claro);
+}
+
+/* ---------- 10.1 AS PEQUENAS COISAS QUE EU AMO ---------- */
+/* reaproveita os estilos .envelope / .carta-mensagem já definidos
+   mais abaixo, na seção 12, apenas muda o fundo da seção */
+.pequenas-coisas-secao {
+  background: linear-gradient(180deg, var(--azul-noturno-2), #241d47);
+}
+
+/* ============================================================
+   11. MEMÓRIAS / GALERIA (estilo scrapbook)
+   → Para trocar as fotos: preencha o atributo src de cada
+     <img class="foto-placeholder-img"> com o caminho do arquivo.
+     Quando a imagem carregar, o texto "[ SUA FOTO AQUI ]" some
+     automaticamente.
+   ============================================================ */
+.memorias-secao {
+  background: linear-gradient(180deg, var(--azul-noturno-2), var(--azul-arroxeado));
+}
+
+.galeria {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 34px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.foto-quadro {
+  position: relative;
+  background: var(--creme);
+  padding: 14px 14px 34px;
+  border-radius: 4px;
+  box-shadow: var(--sombra-suave);
+  aspect-ratio: 4 / 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.foto-quadro--1 { transform: rotate(-4deg); }
+.foto-quadro--2 { transform: rotate(3deg); }
+.foto-quadro--3 { transform: rotate(-2deg); }
+.foto-quadro--4 { transform: rotate(4deg); }
+
+.foto-quadro:hover {
+  transform: rotate(0deg) scale(1.03);
+  transition: transform 350ms ease;
+}
+
+.foto-fita {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-3deg);
+  width: 64px;
+  height: 22px;
+  background: rgba(243, 211, 222, 0.75);
+  border: 1px solid rgba(255,255,255,0.5);
+}
+
+.foto-placeholder-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+.foto-placeholder-img:not([src]),
+.foto-placeholder-img[src=""] {
+  display: none;
+}
+
+.foto-placeholder-texto {
+  position: absolute;
+  inset: 14px 14px 34px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  border: 1.5px dashed var(--azul-arroxeado);
+  color: var(--azul-arroxeado);
+  font-family: var(--fonte-corpo);
+  font-size: 0.85rem;
+  letter-spacing: 0.03em;
+  padding: 12px;
+}
+
+/* quando a imagem carrega de verdade, escondemos o texto de placeholder */
+.foto-placeholder-img[src]:not([src=""]) ~ .foto-placeholder-texto {
+  display: none;
+}
+
+/* ============================================================
+   12. SEIS CARTINHAS (ENVELOPES)
+   → Para trocar os textos: edite o conteúdo dentro de cada
+     <div class="carta-mensagem"> no HTML.
+   ============================================================ */
+.cartinhas-secao {
+  background: var(--azul-arroxeado);
+}
+
+.envelopes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 26px;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+.envelope-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.envelope {
+  border: 1px solid rgba(203, 160, 95, 0.5);
+  background: linear-gradient(160deg, rgba(250, 245, 239, 0.08), rgba(250, 245, 239, 0.02));
+  border-radius: 14px;
+  padding: 26px 18px;
+  color: var(--texto-claro);
+  transition: transform 300ms ease, border-color 300ms ease;
+  perspective: 600px;
+}
+
+.envelope:hover {
+  transform: translateY(-4px);
+  border-color: var(--dourado);
+}
+
+.envelope-corpo {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  transition: transform 500ms ease;
+  transform-style: preserve-3d;
+}
+
+.envelope--aberto .envelope-corpo {
+  transform: rotateX(8deg);
+}
+
+.envelope-icone {
+  width: 34px;
+  height: 34px;
+  color: var(--dourado);
+  transition: transform 500ms ease;
+}
+
+.envelope--aberto .envelope-icone {
+  transform: translateY(-2px) rotateX(20deg);
+}
+
+.envelope-legenda {
+  font-family: var(--fonte-serifada);
+  font-style: italic;
+  font-size: 1.05rem;
+  line-height: 1.4;
+}
+
+.carta-mensagem {
+  margin-top: 14px;
+  padding: 18px 20px;
+  border-radius: 12px;
+  background: var(--creme);
+  color: var(--texto-carta);
+  font-size: 0.98rem;
+  line-height: 1.7;
+  animation: abrirCarta 450ms ease;
+  transform-origin: top center;
+}
+
+@keyframes abrirCarta {
+  from { opacity: 0; transform: scaleY(0.85) translateY(-6px); }
+  to   { opacity: 1; transform: scaleY(1) translateY(0); }
+}
+
+/* ============================================================
+   12.1 QUERO VIVER O MUNDO COM VOCÊ
+   ============================================================ */
+.viagem-secao {
+  background: linear-gradient(180deg, var(--azul-arroxeado), #241d47);
+}
+
+.viagem-texto {
+  max-width: var(--largura-leitura);
+  margin: 0 auto 48px;
+  text-align: center;
+  font-size: clamp(1rem, 2.2vw, 1.15rem);
+  line-height: 1.8;
+  color: var(--texto-suave);
+}
+
+/* trilha decorativa com um pequeno avião se movendo — sutil e discreta */
+.viagem-trilha {
+  position: relative;
+  max-width: 640px;
+  height: 24px;
+  margin: 0 auto 40px;
+}
+
+.viagem-trilha-linha {
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right:
