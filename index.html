@@ -1,1 +1,861 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>para eloah ♡</title>
+<meta name="description" content="um pequeno presente feito com carinho para eloah">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
 
+  <!-- ======================================================
+       TELA INICIAL (INTRO)
+       ====================================================== -->
+  <header id="intro" class="intro">
+    <div class="intro-sky" aria-hidden="true">
+      <div class="intro-moon"></div>
+      <div class="stars-layer" id="introStars"></div>
+      <!-- flores decorativas nas bordas -->
+      <svg class="corner-flower corner-flower--tl" viewBox="0 0 120 120" aria-hidden="true">
+        <use href="#flor-simples"></use>
+      </svg>
+      <svg class="corner-flower corner-flower--br" viewBox="0 0 120 120" aria-hidden="true">
+        <use href="#flor-simples"></use>
+      </svg>
+    </div>
+
+    <div class="intro-content">
+      <p class="intro-eyebrow">para eloah ♡</p>
+      <p class="intro-sub">eu fiz uma coisinha pensando em você, meu amor...</p>
+      <button type="button" id="openGiftBtn" class="btn btn-primary">
+        abrir meu presente
+      </button>
+    </div>
+  </header>
+
+  <!-- ======================================================
+       DEFINIÇÕES SVG REUTILIZÁVEIS (flores, borboleta, ícones)
+       ====================================================== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <g id="flor-simples">
+        <circle cx="60" cy="40" r="12" fill="var(--rosa-suave)"/>
+        <circle cx="45" cy="55" r="12" fill="var(--lilas)"/>
+        <circle cx="75" cy="55" r="12" fill="var(--lilas)"/>
+        <circle cx="48" cy="72" r="12" fill="var(--rosa-suave)"/>
+        <circle cx="72" cy="72" r="12" fill="var(--rosa-suave)"/>
+        <circle cx="60" cy="60" r="9" fill="var(--dourado)"/>
+        <line x1="60" y1="72" x2="60" y2="105" stroke="var(--verde-jardim)" stroke-width="3" stroke-linecap="round"/>
+        <path d="M60 90 C48 90 45 98 45 98" stroke="var(--verde-jardim)" stroke-width="3" fill="none" stroke-linecap="round"/>
+      </g>
+      <g id="borboleta">
+        <path d="M0 0 C -10 -14, -22 -8, -14 4 C -10 10, -3 6, 0 0 Z" fill="var(--lilas)" opacity="0.85"/>
+        <path d="M0 0 C 10 -14, 22 -8, 14 4 C 10 10, 3 6, 0 0 Z" fill="var(--rosa-suave)" opacity="0.85"/>
+        <path d="M0 0 C -8 6, -14 14, -8 18 C -4 20, -1 14, 0 6 Z" fill="var(--lilas)" opacity="0.7"/>
+        <path d="M0 0 C 8 6, 14 14, 8 18 C 4 20, 1 14, 0 6 Z" fill="var(--rosa-suave)" opacity="0.7"/>
+        <line x1="0" y1="-2" x2="0" y2="18" stroke="var(--azul-noturno)" stroke-width="1.5"/>
+      </g>
+      <g id="icone-estrela">
+        <path d="M12 2 L14.5 9 L22 9.5 L16 14.5 L18 22 L12 17.5 L6 22 L8 14.5 L2 9.5 L9.5 9 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-livro">
+        <path d="M12 5 C9 3.5 5 3 3 4 V19 C5 18 9 18.5 12 20 C15 18.5 19 18 21 19 V4 C19 3 15 3.5 12 5 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <line x1="12" y1="5" x2="12" y2="20" stroke="currentColor" stroke-width="1.2"/>
+      </g>
+      <g id="icone-coracao">
+        <path d="M12 20 C4 14 2 9.5 4.5 6.5 C6.5 4 10 4.5 12 8 C14 4.5 17.5 4 19.5 6.5 C22 9.5 20 14 12 20 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-maos">
+        <path d="M4 13 C4 10 6 8 8 8 C9 8 10 8.5 10.5 9.5 L14 13"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M20 13 C20 10 18 8 16 8 C15 8 14 8.5 13.5 9.5 L10 13"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <path d="M8 13 C6 13 5 15 6.5 16.5 C8 18 10 18 12 16 C14 18 16 18 17.5 16.5 C19 15 18 13 16 13"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-bussola">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M15.5 8.5 L13 13 L8.5 15.5 L11 11 Z" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-sorriso">
+        <circle cx="12" cy="12" r="9" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M8 13.5 C9.2 15.3 14.8 15.3 16 13.5" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round"/>
+        <circle cx="9" cy="10" r="0.9" fill="currentColor"/>
+        <circle cx="15" cy="10" r="0.9" fill="currentColor"/>
+      </g>
+      <g id="icone-olho">
+        <path d="M3 12 C6 7 18 7 21 12 C18 17 6 17 3 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle cx="12" cy="12" r="3" fill="none" stroke="currentColor" stroke-width="1.4"/>
+      </g>
+      <g id="icone-envelope">
+        <rect x="2.5" y="5" width="19" height="14" rx="1.5" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M3 6 L12 14 L21 6" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-diamante">
+        <path d="M12 3 L19 9 L12 21 L5 9 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <path d="M5 9 L19 9" fill="none" stroke="currentColor" stroke-width="1.1"/>
+      </g>
+      <g id="icone-brilho">
+        <path d="M12 2 L14 10 L22 12 L14 14 L12 22 L10 14 L2 12 L10 10 Z"
+              fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-selo">
+        <circle cx="12" cy="9" r="6" fill="none" stroke="currentColor" stroke-width="1.4"/>
+        <path d="M9 14 L7 21 L12 18 L17 21 L15 14" fill="none" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/>
+      </g>
+      <g id="icone-infinito">
+        <path d="M8 12 C8 9 11 9 12 12 C13 15 16 15 16 12 C16 9 13 9 12 12 C11 15 8 15 8 12 Z"
+              fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      </g>
+    </defs>
+  </svg>
+
+  <main id="conteudo" class="site-oculto">
+
+    <!-- ======================================================
+         2. HERO PRINCIPAL
+         ====================================================== -->
+    <section class="hero" aria-label="abertura">
+      <div class="hero-moon" aria-hidden="true"></div>
+      <div class="stars-layer stars-layer--hero" aria-hidden="true"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">para a garota que mudou meu mundo</h1>
+        <p class="hero-text">
+          algumas coisas são difíceis de colocar em palavras,<br>
+          então eu tentei transformar um pouquinho delas em um lugar.
+        </p>
+        <div class="scroll-hint" aria-hidden="true">
+          <span></span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         2.1 A FRASE QUE EU QUERIA TE DIZER
+         ====================================================== -->
+    <section class="secao carta-secao" aria-label="a frase que eu queria te dizer">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">antes de tudo</p>
+      </div>
+      <p class="dias-quote reveal">
+        eu queria que você se visse como eu vejo você.
+      </p>
+      <span class="final-divisor reveal" aria-hidden="true"></span>
+      <p class="final-lista reveal">
+        e eu vejo você como uma mulher linda, maravilhosa, triunfante,
+        talentosa, inteligente, estilosa, determinada, carinhosa, forte,
+        sensível, criativa, incrível, especial e cheia de sonhos.
+      </p>
+    </section>
+
+    <!-- ======================================================
+         3. CARTA
+         ====================================================== -->
+    <section class="secao carta-secao" aria-label="uma carta para você">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">uma carta para você</p>
+      </div>
+      <div class="carta-papel reveal">
+        <svg class="carta-selo" viewBox="0 0 60 60" aria-hidden="true">
+          <circle cx="30" cy="30" r="26" fill="none" stroke="var(--dourado)" stroke-width="1.5"/>
+          <use href="#icone-coracao" x="18" y="18" width="24" height="24" style="color:var(--dourado)"></use>
+        </svg>
+        <p>
+          amor, eu quero que você saiba que, entre tantas pessoas que passaram
+          pela minha vida, foi você quem deixou tudo diferente.
+        </p>
+        <p>
+          você trouxe carinho, descobertas, risada boba e uma vontade enorme
+          de ser alguém melhor pra você.
+        </p>
+        <p>
+          eu admiro sua determinação, sua inteligência, seu jeito atento e
+          cuidadoso, e principalmente a forma como você consegue fazer até as
+          coisas pequenas terem um significado enorme pra mim.
+        </p>
+        <p>
+          talvez eu nem sempre saiba colocar tudo isso em palavras do jeito
+          certo, mas cada pedacinho desse presente foi pensado com carinho,
+          porque você é muito importante pra mim, minha pitiquinha.
+        </p>
+        <p class="carta-assinatura">— seu amor</p>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         4. O QUE EU VEJO EM VOCÊ
+         → Para editar as qualidades, mude apenas o texto dentro
+           de cada <p> abaixo.
+         ====================================================== -->
+    <section class="secao admira-secao" aria-label="como eu vejo você">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo um</p>
+        <h2 class="secao-titulo">como eu vejo você</h2>
+      </div>
+      <ul class="cards-grid">
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-brilho"></use></svg>
+          <p>linda</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-estrela"></use></svg>
+          <p>maravilhosa</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-selo"></use></svg>
+          <p>triunfante</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-diamante"></use></svg>
+          <p>talentosa</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-livro"></use></svg>
+          <p>inteligente</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-olho"></use></svg>
+          <p>estilosa</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-bussola"></use></svg>
+          <p>determinada</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-coracao"></use></svg>
+          <p>carinhosa</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-maos"></use></svg>
+          <p>forte</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-sorriso"></use></svg>
+          <p>sensível</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-infinito"></use></svg>
+          <p>criativa</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-envelope"></use></svg>
+          <p>incrível</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-selo"></use></svg>
+          <p>especial</p>
+        </li>
+        <li class="card-admira reveal">
+          <svg class="card-icone" viewBox="0 0 24 24"><use href="#icone-brilho"></use></svg>
+          <p>cheia de sonhos</p>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         4.1 AS PEQUENAS COISAS QUE EU AMO
+         → Para editar cada mensagem, mude o texto dentro de
+           <div class="carta-mensagem" id="msg-pcN"> (N de 1 a 7).
+         ====================================================== -->
+    <section class="secao pequenas-coisas-secao" aria-label="as coisas que amo em você">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo dois</p>
+        <h2 class="secao-titulo">as coisas que amo em você</h2>
+        <p class="secao-instrucao">toque em cada cartão para abrir</p>
+      </div>
+
+      <ul class="envelopes-grid">
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc1" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-coracao"></use></svg>
+              <span class="envelope-legenda">seus beijinhos</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc1" hidden>
+            <p>aqueles beijinhos rápidos que fazem meu dia inteiro melhorar, minha nenemzinha.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc2" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-maos"></use></svg>
+              <span class="envelope-legenda">seus abraços</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc2" hidden>
+            <p>seus abraços têm esse poder de deixar tudo mais leve, sempre, meu amor.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc3" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">nossas conversas</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc3" hidden>
+            <p>eu podia ficar horas só conversando com você sobre qualquer besteira.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc4" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-sorriso"></use></svg>
+              <span class="envelope-legenda">nossas brincadeiras</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc4" hidden>
+            <p>as brincadeiras bobas que só a gente entende de verdade.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc5" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-estrela"></use></svg>
+              <span class="envelope-legenda">nossas piadas internas</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc5" hidden>
+            <p>aquelas piadas que ninguém mais entenderia — só nós dois.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc6" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-infinito"></use></svg>
+              <span class="envelope-legenda">nossas pequenas intimidades</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc6" hidden>
+            <p>os detalhes pequenos que só existem entre a gente, minha pitiquinha.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="pc7" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-selo"></use></svg>
+              <span class="envelope-legenda">nossos momentos mais safadinhos</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-pc7" hidden>
+            <p>e claro, aqueles nossos momentos mais safadinhos, cheios de cumplicidade 😉</p>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         5. MEMÓRIAS (GALERIA)
+         ====================================================== -->
+    <section class="secao memorias-secao" aria-label="pequenos momentos, grandes lembranças">
+      <div class="secao-cabecalho reveal">
+        <h2 class="secao-titulo">pequenos momentos, grandes lembranças</h2>
+      </div>
+      <ul class="galeria">
+        <li class="foto-quadro reveal foto-quadro--1">
+          <div class="foto-fita" aria-hidden="true"></div>
+          <img src="" alt="substitua pelo caminho da sua foto, ex.: fotos/foto1.jpg" class="foto-placeholder-img">
+          <span class="foto-placeholder-texto">[ SUA FOTO AQUI ]</span>
+        </li>
+        <li class="foto-quadro reveal foto-quadro--2">
+          <div class="foto-fita" aria-hidden="true"></div>
+          <img src="" alt="substitua pelo caminho da sua foto, ex.: fotos/foto2.jpg" class="foto-placeholder-img">
+          <span class="foto-placeholder-texto">[ SUA FOTO AQUI ]</span>
+        </li>
+        <li class="foto-quadro reveal foto-quadro--3">
+          <div class="foto-fita" aria-hidden="true"></div>
+          <img src="" alt="substitua pelo caminho da sua foto, ex.: fotos/foto3.jpg" class="foto-placeholder-img">
+          <span class="foto-placeholder-texto">[ SUA FOTO AQUI ]</span>
+        </li>
+        <li class="foto-quadro reveal foto-quadro--4">
+          <div class="foto-fita" aria-hidden="true"></div>
+          <img src="" alt="substitua pelo caminho da sua foto, ex.: fotos/foto4.jpg" class="foto-placeholder-img">
+          <span class="foto-placeholder-texto">[ SUA FOTO AQUI ]</span>
+        </li>
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         6. SEIS CARTINHAS
+         ====================================================== -->
+    <section class="secao cartinhas-secao" aria-label="seis coisinhas que eu queria te dizer">
+      <div class="secao-cabecalho reveal">
+        <h2 class="secao-titulo">seis coisinhas que eu queria te dizer</h2>
+        <p class="secao-instrucao">toque em cada envelope para abrir</p>
+      </div>
+
+      <ul class="envelopes-grid">
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="1" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">o que eu admiro em você</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-1" hidden>
+            <p>eu admiro do jeito como você encara desafios até o jeitinho que você
+            cuida de tudo e de todos ao seu redor — troque este texto pelo que você
+            realmente quer dizer.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="2" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">como você mudou minha vida</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-2" hidden>
+            <p>desde que você chegou, coisas simples do meu dia ganharam outro
+            sentido — este é só um texto de exemplo, escreva a sua própria
+            lembrança aqui.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="3" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">um momento que eu guardo</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-3" hidden>
+            <p>tem um momento específico que eu penso sempre que estou sozinho —
+            conte aqui qual é esse momento para vocês dois.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="4" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">o que eu desejo para nós</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-4" hidden>
+            <p>eu desejo mais tardes tranquilas, mais conversas bobas e mais
+            planos pequenos que a gente vai cumprindo aos poucos — edite com o
+            que você deseja de verdade.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="5" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">uma coisa que talvez eu nunca diga o suficiente</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-5" hidden>
+            <p>eu nem sempre digo, mas eu percebo cada pequeno esforço seu — troque
+            por algo que você guarda e quase nunca coloca em palavras.</p>
+          </div>
+        </li>
+
+        <li class="envelope-item reveal">
+          <button type="button" class="envelope" data-envelope="6" aria-expanded="false">
+            <span class="envelope-corpo">
+              <svg viewBox="0 0 24 24" class="envelope-icone"><use href="#icone-envelope"></use></svg>
+              <span class="envelope-legenda">simplesmente, obrigado por existir</span>
+            </span>
+          </button>
+          <div class="carta-mensagem" id="msg-6" hidden>
+            <p>obrigado por existir do jeito que você é — este espaço é seu para
+            fechar com as palavras que quiser.</p>
+          </div>
+        </li>
+
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         6.1 QUERO VIVER O MUNDO COM VOCÊ
+         → O parágrafo e a lista de lugares ficam logo abaixo,
+           fáceis de editar.
+         ====================================================== -->
+    <section class="secao viagem-secao" aria-label="quero viver o mundo com você">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo três</p>
+        <h2 class="secao-titulo">quero viver o mundo com você</h2>
+      </div>
+      <p class="viagem-texto reveal">
+        quero conhecer lugares novos com você, explorar o mundo, descobrir
+        cidades, praias, restaurantes, lojas, parques, cafés e até aqueles
+        lugares aleatórios que a gente encontra pelo caminho.
+      </p>
+      <div class="viagem-trilha reveal" aria-hidden="true">
+        <span class="viagem-trilha-linha"></span>
+        <span class="viagem-aviao">✈️</span>
+      </div>
+      <ul class="viagem-grid">
+        <li class="viagem-chip reveal"><span aria-hidden="true">🌙</span>lugares novos</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🏙️</span>cidades</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🌊</span>praias</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">☕</span>cafés</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🛍️</span>lojas</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🍽️</span>restaurantes</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🌳</span>parques</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">✈️</span>viagens</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">📸</span>fotos</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🎟️</span>passeios</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🍜</span>comidas novas</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🧭</span>aventuras</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">💫</span>lembranças</li>
+        <li class="viagem-chip reveal"><span aria-hidden="true">🌿</span>momentos simples</li>
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         6.2 NOS DIAS FÁCEIS E NOS DIFÍCEIS
+         ====================================================== -->
+    <section class="secao dias-secao" aria-label="nos dias fáceis e nos difíceis">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo quatro</p>
+        <h2 class="secao-titulo">nos dias fáceis e nos difíceis</h2>
+      </div>
+      <p class="dias-quote reveal">
+        não quero estar presente só quando tudo estiver perfeito, amor.<br>
+        quero estar quando estiver tudo bagunçado também.
+      </p>
+      <ul class="dias-pills">
+        <li class="reveal">nos momentos fáceis</li>
+        <li class="reveal">nos momentos difíceis</li>
+        <li class="reveal">nos dias maravilhosos</li>
+        <li class="reveal">quando você estiver cansada</li>
+        <li class="reveal">quando você estiver feliz</li>
+        <li class="reveal">quando algo der errado</li>
+        <li class="reveal">nas conquistas</li>
+        <li class="reveal">nos dias comuns</li>
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         6.3 MESMO QUANDO FOR DIFÍCIL
+         ====================================================== -->
+    <section class="secao distancia-secao" aria-label="mesmo quando as coisas não são perfeitas">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo cinco</p>
+        <h2 class="secao-titulo">mesmo quando as coisas não são perfeitas</h2>
+      </div>
+      <div class="carta-papel carta-papel--simples reveal">
+        <p>
+          desculpa por nem sempre conseguir ter um fone bom, um celular bom ou
+          todas aquelas coisas que poderiam deixar nossa comunicação mais
+          fácil, amor.
+        </p>
+        <p>
+          às vezes eu queria muito conseguir proporcionar tudo isso pra gente.
+        </p>
+        <p>
+          mas mesmo assim, a gente consegue dar um jeito.
+        </p>
+        <p>
+          talvez nem tudo seja perfeito agora, mas eu não quero que as
+          dificuldades sejam maiores do que aquilo que a gente sente um pelo
+          outro.
+        </p>
+        <p>
+          a gente pode adaptar, esperar, tentar de novo e sempre encontrar
+          nosso próprio jeitinho de ficar perto, minha pitiquinha.
+        </p>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         6.4 EU QUERO MELHORAR
+         ====================================================== -->
+    <section class="secao melhorar-secao" aria-label="eu quero melhorar">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo seis</p>
+        <h2 class="secao-titulo">eu quero melhorar</h2>
+      </div>
+      <p class="melhorar-texto reveal">
+        eu sei que cometo erros, e sei que já errei com você em algumas
+        situações. sinto muito por isso. mas eu quero aprender, quero
+        amadurecer, quero te ouvir melhor, conversar melhor e fazer a minha
+        parte pra ser um namorado cada vez melhor pra você — alguém que
+        consegue te fazer sentir sempre
+      </p>
+      <ul class="dias-pills reveal-grupo">
+        <li class="reveal">amada</li>
+        <li class="reveal">respeitada</li>
+        <li class="reveal">cuidada</li>
+        <li class="reveal">importante</li>
+      </ul>
+      <p class="melhorar-texto reveal">
+        isso não é uma desculpa. é uma promessa sincera que eu levo comigo
+        todos os dias.
+      </p>
+    </section>
+
+    <!-- ======================================================
+         6.45 SÓ PRA VOCÊ, PITIQUINHA
+         ====================================================== -->
+    <section class="secao pequenas-coisas-secao" aria-label="para minha pitiquinha">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">só pra você, pitiquinha</p>
+        <h2 class="secao-titulo">um minutinho só nosso</h2>
+      </div>
+      <div class="carta-papel carta-papel--simples reveal">
+        <p>
+          eu sei que minha pitiquinha passou por muita coisa, e sei que você
+          vem passando por muitas coisas nesses últimos dias também.
+        </p>
+        <p>
+          talvez eu não consiga resolver tudo sozinho, mas eu queria que, por
+          alguns minutinhos, você pudesse esquecer um pouco das coisas ruins e
+          simplesmente ficar aqui comigo.
+        </p>
+        <p>
+          foi por isso que eu fiz esse presentinho pra você, minha nenemzinha.
+        </p>
+        <p class="carta-assinatura">— seu amor</p>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         6.5 TUDO QUE AINDA FALTA VIVER
+         ====================================================== -->
+    <section class="secao futuro-secao" aria-label="tudo que ainda falta viver">
+      <div class="secao-cabecalho reveal">
+        <p class="secao-eyebrow">capítulo sete</p>
+        <h2 class="secao-titulo">tudo que ainda falta viver</h2>
+      </div>
+      <ul class="timeline">
+        <li class="timeline-item reveal">tantos lugares que ainda não conhecemos</li>
+        <li class="timeline-item reveal">tantas lojas que ainda vamos entrar</li>
+        <li class="timeline-item reveal">tantas comidas novas que ainda vamos experimentar</li>
+        <li class="timeline-item reveal">tantas fotos que ainda vamos tirar</li>
+        <li class="timeline-item reveal">tantas conversas que ainda vamos ter</li>
+        <li class="timeline-item reveal">tantas aventuras que ainda vamos viver</li>
+        <li class="timeline-item reveal">tantos momentos simples que ainda vamos guardar</li>
+        <li class="timeline-item reveal">tantos momentos que ainda nem imaginamos</li>
+      </ul>
+    </section>
+
+    <!-- ======================================================
+         7. JARDIM
+         ====================================================== -->
+    <section class="secao jardim-secao" aria-label="se eu pudesse guardar um lugar para nós">
+      <div class="jardim-cena" aria-hidden="true">
+        <div class="jardim-lua"></div>
+        <div class="stars-layer stars-layer--jardim"></div>
+        <svg class="jardim-borboleta jardim-borboleta--1" viewBox="-24 -24 48 48"><use href="#borboleta"></use></svg>
+        <svg class="jardim-borboleta jardim-borboleta--2" viewBox="-24 -24 48 48"><use href="#borboleta"></use></svg>
+        <div class="jardim-grama"></div>
+        <svg class="jardim-flor jardim-flor--1" viewBox="0 0 120 120"><use href="#flor-simples"></use></svg>
+        <svg class="jardim-flor jardim-flor--2" viewBox="0 0 120 120"><use href="#flor-simples"></use></svg>
+        <svg class="jardim-flor jardim-flor--3" viewBox="0 0 120 120"><use href="#flor-simples"></use></svg>
+        <svg class="jardim-flor jardim-flor--4" viewBox="0 0 120 120"><use href="#flor-simples"></use></svg>
+        <svg class="jardim-flor jardim-flor--5" viewBox="0 0 120 120"><use href="#flor-simples"></use></svg>
+      </div>
+      <div class="jardim-texto reveal">
+        <p class="secao-eyebrow">se eu pudesse guardar um lugar para nós</p>
+        <p class="jardim-frase">eu escolheria um lugar onde o tempo pudesse passar devagar.</p>
+      </div>
+    </section>
+
+    <!-- ======================================================
+         8. FINAL
+         ====================================================== -->
+    <section class="secao final-secao" aria-label="mensagem final">
+      <div class="stars-layer stars-layer--final" aria-hidden="true"></div>
+      <div class="final-lua" aria-hidden="true"></div>
+      <div class="final-conteudo reveal">
+        <p class="secao-eyebrow">capítulo oito</p>
+        <p class="final-titulo">e se algum dia você esquecer o quanto é especial...</p>
+        <p class="final-volte">volte aqui.</p>
+        <p class="final-texto">
+          porque eu fiz isso para que algumas das coisas que sinto por você
+          tivessem um lugar para ficar.
+        </p>
+
+        <span class="final-divisor" aria-hidden="true"></span>
+
+        <p class="final-historia">
+          eu não quero uma história perfeita.<br>
+          quero uma história nossa.
+        </p>
+
+        <p class="final-lista">
+          com nossos beijinhos, nossos abraços, nossas brincadeiras, nossas
+          conversas, nossas descobertas, nossos momentos fofos, nossos
+          momentos mais safadinhos, nossos planos, nossas dificuldades,
+          nossas risadas, nossos erros, nossos aprendizados e todas aquelas
+          pequenas coisas que fazem a gente ser a gente.
+        </p>
+
+        <span class="final-divisor" aria-hidden="true"></span>
+
+        <p class="final-te-amo">eu te amo, amor.</p>
+
+        <p class="final-texto">
+          e espero que você nunca esqueça o quanto é talentosa, estilosa,
+          maravilhosa, triunfante e especial pra mim.
+        </p>
+
+        <p class="final-assinatura">com carinho,<br>seu amor ♡</p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- botão de voltar ao topo -->
+  <button type="button" id="backToTop" class="back-to-top" aria-label="voltar ao topo" hidden>
+    ↑
+  </button>
+
+  <script>
+    // ======================================================
+    // JAVASCRIPT — comportamento do site
+    // Tudo comentado por bloco para facilitar edição.
+    // ======================================================
+
+    (function () {
+      "use strict";
+
+      var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+      // ---------- 1. GERAÇÃO DE ESTRELAS ----------
+      // Preenche cada .stars-layer com pequenos pontos em posições
+      // aleatórias, com brilho suave (a animação em si vem do CSS).
+      function gerarEstrelas(container, quantidade) {
+        if (!container) return;
+        var frag = document.createDocumentFragment();
+        for (var i = 0; i < quantidade; i++) {
+          var estrela = document.createElement("span");
+          estrela.className = "estrela";
+          estrela.style.top = Math.random() * 100 + "%";
+          estrela.style.left = Math.random() * 100 + "%";
+          estrela.style.setProperty("--tamanho", (Math.random() * 1.6 + 0.8).toFixed(2) + "px");
+          estrela.style.setProperty("--atraso", (Math.random() * 6).toFixed(2) + "s");
+          estrela.style.setProperty("--duracao", (Math.random() * 3 + 3).toFixed(2) + "s");
+          frag.appendChild(estrela);
+        }
+        container.appendChild(frag);
+      }
+
+      document.querySelectorAll(".stars-layer").forEach(function (camada) {
+        var qtd = camada.id === "introStars" ? 70 : 40;
+        gerarEstrelas(camada, qtd);
+      });
+
+      // ---------- 2. ABRIR PRESENTE (TELA INICIAL) ----------
+      var introEl = document.getElementById("intro");
+      var conteudoEl = document.getElementById("conteudo");
+      var abrirBtn = document.getElementById("openGiftBtn");
+
+      abrirBtn.addEventListener("click", function () {
+        introEl.classList.add("intro--saindo");
+        conteudoEl.classList.remove("site-oculto");
+
+        // Aguarda a transição do CSS antes de remover a tela inicial do fluxo
+        var duracao = reduceMotion ? 0 : 700;
+        window.setTimeout(function () {
+          introEl.setAttribute("hidden", "");
+        }, duracao);
+
+        document.body.classList.add("presente-aberto");
+      });
+
+      // ---------- 3. ANIMAÇÃO AO ROLAR (SCROLL REVEAL) ----------
+      var elementosReveal = document.querySelectorAll(".reveal");
+
+      if ("IntersectionObserver" in window && !reduceMotion) {
+        var observer = new IntersectionObserver(
+          function (entradas) {
+            entradas.forEach(function (entrada) {
+              if (entrada.isIntersecting) {
+                entrada.target.classList.add("reveal--visivel");
+                observer.unobserve(entrada.target);
+              }
+            });
+          },
+          { threshold: 0.15 }
+        );
+        elementosReveal.forEach(function (el) {
+          observer.observe(el);
+        });
+      } else {
+        // sem suporte ou usuário prefere menos movimento: mostra tudo direto
+        elementosReveal.forEach(function (el) {
+          el.classList.add("reveal--visivel");
+        });
+      }
+
+      // ---------- 4. ENVELOPES (SEIS CARTINHAS) ----------
+      var envelopes = document.querySelectorAll(".envelope");
+
+      envelopes.forEach(function (envelope) {
+        envelope.addEventListener("click", function () {
+          var numero = envelope.getAttribute("data-envelope");
+          var mensagem = document.getElementById("msg-" + numero);
+          var aberto = envelope.classList.toggle("envelope--aberto");
+
+          envelope.setAttribute("aria-expanded", aberto ? "true" : "false");
+
+          if (mensagem) {
+            if (aberto) {
+              mensagem.hidden = false;
+            } else {
+              mensagem.hidden = true;
+            }
+          }
+        });
+      });
+
+      // ---------- 5. BOTÃO VOLTAR AO TOPO ----------
+      var backToTopBtn = document.getElementById("backToTop");
+
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > window.innerHeight) {
+          backToTopBtn.removeAttribute("hidden");
+        } else {
+          backToTopBtn.setAttribute("hidden", "");
+        }
+      });
+
+      backToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+          top: 0,
+          behavior: reduceMotion ? "auto" : "smooth"
+        });
+      });
+
+      // ---------- 6. PEQUENO BRILHO AO CLICAR (efeito discreto) ----------
+      // Cria um pequeno brilho dourado no ponto do clique, dentro do
+      // conteúdo principal, sem exagerar em elementos interativos.
+      if (!reduceMotion) {
+        document.addEventListener("click", function (evento) {
+          if (introEl.hasAttribute("hidden") === false) return; // ainda na intro
+          var brilho = document.createElement("span");
+          brilho.className = "brilho-clique";
+          brilho.style.left = evento.clientX + "px";
+          brilho.style.top = evento.clientY + "px";
+          document.body.appendChild(brilho);
+          window.setTimeout(function () {
+            brilho.remove();
+          }, 700);
+        });
+      }
+
+    })();
+  </script>
+
+</body>
+</html>
